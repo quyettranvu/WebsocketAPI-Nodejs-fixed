@@ -1,1 +1,1 @@
-My notes during times learning Websocket is displayed in file txt
+My notes during times learning Websocket is displayed in file explainaboutwebsocket.txt
