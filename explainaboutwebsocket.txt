@@ -1,0 +1,28 @@
+HTTP Requests:
+-HTTP is a stateless, request-response protocol widely used for web applications. 
+-HTTP requests are suited for scenarios where you need to make a request to a server and receive a response. Examples of such scenarios are fetching data from an API, sending form data to a server, etc.
+
+TCP Sockets: 
+-TCP is a low-level protocol that provides a reliable, stream-oriented connection between two applications. 
+Unlike HTTP, it's a full-duplex protocol that allows both the client and server to send data at the same time. TCP sockets are suited for scenarios where you need real-time communication, such as instant messaging, online gaming, etc.
+
+In general, if you need to make simple, one-off requests, use HTTP requests. If you need real-time communication between the client and server, use TCP sockets.
+
+
+
+***In example we are going to look at how to use websocket in external HTTP server ***
+An external HTTP server is a standalone server that is separate from your application and serves as a proxy for handling HTTP requests. It is often used to handle tasks that are not suitable for the application server, such as serving static files, handling load balancing, or acting as a reverse proxy.
+For example, you might have a Node.js application that serves dynamic content, but you don't want to serve large static files (such as images or videos) from the application server. In that case, you can configure an external HTTP server (such as Nginx or Apache) to handle static file requests and proxy the dynamic content requests back to your application server.
+
+Using an external HTTP server can improve the performance, scalability, and security of your application by offloading tasks from the application server and allowing you to fine-tune the HTTP server configuration.
+
+
+Tổng kết về ưu và nhược điểm của việc sử dụng WebSockets:
+**Ưu điểm:
+WebSockets cung cấp khả năng giao tiếp hai chiều mạnh mẽ, có độ trễ thấp và dễ xử lý lỗi. Không cần phải có nhiều kết nối như phương pháp Comet long-polling và cũng không có những nhược điểm như Comet streaming.
+API cũng rất dễ sử dụng trực tiếp mà không cần bất kỳ các tầng bổ sung nào, so với Comet, thường đòi hỏi một thư viện tốt để xử lý kết nối lại, thời gian chờ timeout, các Ajax request (yêu cầu Ajax), các tin báo nhận và các dạng truyền tải tùy chọn khác nhau (Ajax long-polling và jsonp polling).
+
+
+**Nhược điểm:
+Những nhược điểm của WebSockets gồm có:
+Không có phạm vi yêu cầu nào. Do WebSocket là một TCP socket chứ không phải là HTTP request, nên không dễ sử dụng các dịch vụ có phạm vi-yêu cầu, như SessionInViewFilter của Hibernate. Hibernate là một framework kinh điển cung cấp một bộ lọc xung quanh một HTTP request. Khi bắt đầu một request, nó sẽ thiết lập một contest (chứa các transaction và liên kết JDBC) được ràng buộc với luồng request. Khi request đó kết thúc, bộ lọc hủy bỏ contest này.

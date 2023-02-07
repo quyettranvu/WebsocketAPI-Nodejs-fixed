@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Client2
+    <button onclick="sendMessage()">Send Message</button>
+</body>
+<script>
+    const socket = new WebSocket("ws://localhost:3000");
+
+    //onopen event is emitted when the connection is established
+    socket.addEventListener('open', function (event) {
+        console.log('Connected to WS Server')
+    });
+
+    //onmessage event is emmited when the client receives a message from the server
+    // socket.addEventListener('message', function (event) {
+    //     console.log('Message from server ', event.data);
+    // });
+
+    socket.addEventListener('message', function (event) {
+        var data = new Blob([event.data], { type: 'text/plain' });
+        var reader = new FileReader();
+        reader.onload = function () {
+            console.log('Message from server: ', reader.result);
+        };
+        reader.readAsText(data);
+    });
+
+    const sendMessage = () => {
+        socket.send('Hello From Client2!');
+    }
+</script>
+
+</html>
